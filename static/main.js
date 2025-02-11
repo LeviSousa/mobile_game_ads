@@ -44,6 +44,10 @@ function onYouTubeIframeAPIReady() {
 }
 
 window.onload = function () {
+  setTimeout(function () {
+    window.scrollTo(0, 1);
+  }, 0);
+
   var nextButton = document.getElementById("next-button");
 
   nextButton.addEventListener("click", function () {
