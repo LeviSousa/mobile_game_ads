@@ -20,8 +20,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
-    width: "100%",
-    height: "100%",
     videoId,
     playerVars: {
       autoplay: 1,
@@ -44,3 +42,11 @@ function onYouTubeIframeAPIReady() {
     }
   }
 }
+
+window.onload = function () {
+  var nextButton = document.getElementById("next-button");
+
+  nextButton.addEventListener("click", function () {
+    player.loadVideoById(getRandomVideo().videoId);
+  });
+};
