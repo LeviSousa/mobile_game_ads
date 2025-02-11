@@ -1,20 +1,24 @@
-import { readFileSync } from "fs";
+function getRandomVideo() {
+  return videoData[Math.floor(Math.random() * videoData.length)];
+}
 
-const videoData = JSON.parse(
-  readFileSync("assets/clean_shorts_data.json", "utf-8")
-);
+var videoData = [];
+var videoId;
+fetch("assets/clean_shorts_data.json")
+  .then((r) => r.json())
+  .then((json) => {
+    videoData = json;
+    videoId = getRandomVideo().videoId;
+  });
 
-const getRandomVideo = () =>
-  videoData[Math.floor(Math.random() * videoData.length)];
-const tag = document.createElement("script");
+var tag = document.createElement("script");
 
 tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName("script")[0];
+var firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-let player;
-const videoId = getRandomVideo().videoId;
-const onYouTubeIframeAPIReady = () => {
+var player;
+function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     width: "100%",
     height: "100%",
@@ -39,4 +43,4 @@ const onYouTubeIframeAPIReady = () => {
       player.loadVideoById(getRandomVideo().videoId);
     }
   }
-};
+}
